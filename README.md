@@ -1,69 +1,81 @@
 # Kuber Kludge
 
-## Introduction
+Kuber Kludge is a chaos engineering tool designed to simulate chaos in Kubernetes clusters by terminating pods and performing other disruptive actions.
 
-Kuber Kludge is a chaos engineering tool designed to simulate chaos by terminating Kubernetes pods and other resources. With Kuber Kludge, you can test the resilience of your Kubernetes clusters, identify weaknesses, and improve fault tolerance in your applications.
+## Installation
 
-## Features
+1. Clone the repository:
 
-- **Random Pod Termination:** Simulate chaos by randomly terminating Kubernetes pods in your cluster.
-- **Resource Deletion:** Optionally delete sidecar containers, ingresses, or services to further simulate chaos.
+    ```bash
+    git clone https://github.com/davestj/kuber_kludge.git
+    ```
 
-## Getting Started
+2. Navigate to the `kuber_kludge` directory:
 
-To get started with Kuber Kludge, follow these steps:
+    ```bash
+    cd kuber_kludge
+    ```
 
-### Prerequisites
+3. Ensure you have Python 3.11 installed. If not, install it using your package manager or download it from the [official Python website](https://www.python.org/).
 
-- Python 3.x installed on your system, development was done on  MacOS Python 3.11 installed with brew.
-- Access to a Kubernetes cluster, either AWS EKS or standalone.
+4. Install the required Python packages:
 
-### Installation
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-1. Clone the Kuber Kludge repository:
+## Usage
 
-   ```bash
-   git clone https://github.com/davestj/kuber_kludge.git
-   ```
-
-2. Navigate to the cloned directory:
-
-   ```bash
-   cd kuber_kludge
-   ```
-
-3. Install the required Python dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-### Usage
-
-To run Kuber Kludge, use the following command-line arguments:
+Make sure to have your Kubernetes configuration (`kubeconfig`) file ready. You can then use the script directly from the command line.
 
 ```bash
-python kuber_kludge.py --kubeconfig <path-to-kubeconfig> --namespace <namespace> --pod-count <number-of-pods> --delete-sidecar --delete-ingress --delete-service
+#!/usr/bin/env python3.11
+
+usage: kuber_kludge.py [-h] [--kubeconfig KUBECONFIG] [--namespace NAMESPACE]
+                       [--pod-count POD_COUNT] [--delete-sidecar] [--delete-ingress]
+                       [--delete-service] [--delete-configmap] [--delete-cronjob]
+
+Kubernetes Pod Kludge - Simulate chaos by terminating Kubernetes pods
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --kubeconfig KUBECONFIG
+                        Path to kubeconfig file for EKS cluster
+  --namespace NAMESPACE
+                        Kubernetes namespace (default: "default")
+  --pod-count POD_COUNT
+                        Number of pods to terminate (default: 1)
+  --delete-sidecar      Randomly delete a sidecar container
+  --delete-ingress      Randomly delete an ingress
+  --delete-service      Randomly delete a service
+  --delete-configmap    Randomly delete a config map
+  --delete-cronjob      Randomly delete a cron job
 ```
 
-Replace `<path-to-kubeconfig>` with the path to your Kubernetes cluster's kubeconfig file, `<namespace>` with the desired Kubernetes namespace, and `<number-of-pods>` with the number of pods to terminate.
+## Examples
 
-Use the `--delete-sidecar`, `--delete-ingress`, and `--delete-service` flags to specify whether to randomly delete a sidecar container, ingress, or service, respectively.
-
-### Example
-
-Terminate 3 pods in the `default` namespace of an AWS EKS cluster, and randomly delete a sidecar container:
+Terminate pods and delete a random sidecar container:
 
 ```bash
-python kuber_kludge.py --kubeconfig ~/.kube/config --namespace default --pod-count 3 --delete-sidecar
+./kuber_kludge.py --kubeconfig /path/to/kubeconfig --delete-sidecar
+```
+
+Terminate pods and delete a random service:
+
+```bash
+./kuber_kludge.py --kubeconfig /path/to/kubeconfig --delete-service
+```
+
+Terminate pods and delete a random config map:
+
+```bash
+./kuber_kludge.py --kubeconfig /path/to/kubeconfig --delete-configmap
 ```
 
 ## Contributing
 
-If you encounter any issues or have ideas for improvements, feel free to open an issue or submit a pull request on [GitHub](https://github.com/davestj/kuber_kludge).
+---
 
-## License
-
-Kuber Kludge is licensed under the [MIT License](LICENSE), allowing for unrestricted use, modification, and distribution.
+Contributions are welcome! Please feel free to open a pull request for any improvements or additional features you'd like to add.
 
 ---
