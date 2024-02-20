@@ -5,35 +5,35 @@ pipeline {
         stage('Delete Sidecar') {
             steps {
                 script {
-                    sh 'python3.11 kuber_kludge.py --kubeconfig /path/to/kubeconfig --delete-sidecar'
+                    sh 'python3.11 kuber_kludge.py --kubeconfig ~/.kube/config --delete-sidecar'
                 }
             }
         }
         stage('Delete Ingress') {
             steps {
                 script {
-                    sh 'python3.11 kuber_kludge.py --kubeconfig /path/to/kubeconfig --delete-ingress'
+                    sh 'python3.11 kuber_kludge.py --kubeconfig ~/.kube/config --delete-ingress'
                 }
             }
         }
         stage('Delete Service') {
             steps {
                 script {
-                    sh 'python3.11 kuber_kludge.py --kubeconfig /path/to/kubeconfig --delete-service'
+                    sh 'python3.11 kuber_kludge.py --kubeconfig ~/.kube/config --delete-service'
                 }
             }
         }
         stage('Delete Config Map') {
             steps {
                 script {
-                    sh 'python3.11 kuber_kludge.py --kubeconfig /path/to/kubeconfig --delete-configmap'
+                    sh 'python3.11 kuber_kludge.py --kubeconfig ~/.kube/config --delete-configmap'
                 }
             }
         }
         stage('Delete Cron Job') {
             steps {
                 script {
-                    sh 'python3.11 kuber_kludge.py --kubeconfig /path/to/kubeconfig --delete-cronjob'
+                    sh 'python3.11 kuber_kludge.py --kubeconfig ~/.kube/config --delete-cronjob'
                 }
             }
         }
